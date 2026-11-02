@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  input::placeholder {
+    color: #94a3b8;
+  }
+
+  /* Ensure only one custom view password option is visible by disabling native browser reveal */
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none !important;
+  }
+}
+
+@layer components {
+  .auth-page {
+    background: #f5f8fc;
+    background-image: radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.12), transparent 28rem), radial-gradient(circle at 85% 90%, rgba(15, 118, 110, 0.1), transparent 25rem);
+  }
+
+  .auth-panel {
+    background: linear-gradient(145deg, #082f49 0%, #075985 52%, #0f766e 100%);
+  }
+
+  .auth-input {
+    @apply w-full rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-sm text-slate-900 outline-none transition;
+  }
+
+  .auth-input:focus {
+    @apply border-sky-500 bg-white ring-4 ring-sky-100;
+  }
+
+  .auth-submit {
+    @apply flex w-full items-center justify-center gap-2 rounded-xl bg-sky-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-sky-600/20 transition hover:bg-sky-700 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+}
