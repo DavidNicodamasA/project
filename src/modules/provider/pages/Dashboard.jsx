@@ -488,67 +488,72 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans text-slate-900 pb-16">
+    <div className="min-h-screen bg-slate-50/60 font-sans text-slate-900 pb-20">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
         {/* Top Header Command Bar */}
-        <div className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-md bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
-                Technician Station
-              </span>
-              <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
-                <MapPin className="h-3.5 w-3.5 text-emerald-600" />
-                Base: {profile.locationName}
-              </span>
+        <div className="relative rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-card overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-emerald-100/50 via-teal-50/30 to-transparent rounded-full blur-3xl -z-10 pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-2.5 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200/80 shadow-2xs">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                  <span>Service Provider Command Center</span>
+                </span>
+                <span className="text-xs text-slate-500 font-semibold flex items-center gap-1.5 bg-slate-100/80 px-3 py-1 rounded-full border border-slate-200/60">
+                  <MapPin className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>Base: {profile.locationName}</span>
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-display">
+                {activeProviderName} Dashboard
+              </h1>
+              <p className="text-sm text-slate-600 font-medium">
+                Primary Trade: <strong className="text-slate-800 font-bold">{profile.categoryLabel}</strong> • Hourly Rate: <span className="font-extrabold text-emerald-700">${profile.hourlyRate}/hr</span>
+              </p>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              {activeProviderName} Dashboard
-            </h1>
-            <p className="text-sm text-slate-600">
-              Primary Trade: <strong className="text-slate-800">{profile.categoryLabel}</strong> | Hourly Rate: ${profile.hourlyRate}/hr
-            </p>
-          </div>
 
-          {/* Right Actions: Online Toggle & Persona Switcher */}
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={handleToggleOnlineStatus}
-              className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 border transition shadow-xs ${
-                profile.isAvailable
-                  ? 'bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700'
-                  : 'bg-slate-200 text-slate-700 border-slate-300 hover:bg-slate-300'
-              }`}
-            >
-              <Power className="h-4 w-4" />
-              <span>Status: {profile.isAvailable ? 'ONLINE (Accepting Jobs)' : 'OFFLINE (Hidden)'}</span>
-            </button>
+            {/* Right Actions: Online Toggle & Edit Profile */}
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={handleToggleOnlineStatus}
+                className={`px-4 py-2.5 rounded-2xl font-extrabold text-xs flex items-center gap-2 border transition shadow-sm ${
+                  profile.isAvailable
+                    ? 'bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700 shadow-emerald-600/20'
+                    : 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200'
+                }`}
+              >
+                <Power className="h-4 w-4" />
+                <span>{profile.isAvailable ? '● ONLINE (Accepting Jobs)' : '○ OFFLINE (Hidden)'}</span>
+              </button>
 
-            <button
-              type="button"
-              onClick={handleOpenEditModal}
-              className="px-4 py-2.5 rounded-xl font-bold text-xs bg-white text-slate-800 border border-slate-300 hover:bg-slate-50 transition shadow-xs flex items-center gap-1.5"
-            >
-              <Edit3 className="h-4 w-4" />
-              <span>Edit Profile & Skills</span>
-            </button>
+              <button
+                type="button"
+                onClick={handleOpenEditModal}
+                className="px-4 py-2.5 rounded-2xl font-extrabold text-xs bg-white text-slate-800 border border-slate-200/90 hover:bg-slate-50 hover:border-slate-300 transition shadow-2xs flex items-center gap-1.5"
+              >
+                <Edit3 className="h-4 w-4 text-slate-500" />
+                <span>Edit Profile & Skills</span>
+              </button>
+            </div>
           </div>
         </div>
 
         {/* TAMIL NADU SERVICE TERRITORY & COVERAGE PLACES */}
-        <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-xs space-y-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-            <div className="flex items-start sm:items-center gap-3">
-              <div className="h-11 w-11 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-bold shrink-0 shadow-2xs">
-                <MapPin className="h-5 w-5" />
+        <div className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-7 shadow-card space-y-5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="h-12 w-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center font-bold shrink-0 shadow-2xs">
+                <MapPin className="h-6 w-6 text-emerald-600" />
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <h2 className="text-base font-extrabold text-slate-900 font-display">
+                  <h2 className="text-lg font-black text-slate-900 font-display">
                     Tamil Nadu Operating Territory & Service Places
                   </h2>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-wider">
@@ -556,21 +561,21 @@ export default function Dashboard() {
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 font-medium mt-0.5">
-                  Base Workshop: <strong className="text-slate-800">{profile.address || `${profile.place || 'Central'}, ${currentDistrictObj?.name || profile.district}`}</strong> • PIN: <strong className="text-slate-800">{profile.pincode || '600017'}</strong>
+                  Base Workshop: <strong className="text-slate-800 font-bold">{profile.address || `${profile.place || 'Central'}, ${currentDistrictObj?.name || profile.district}`}</strong> • PIN: <strong className="text-slate-800 font-bold">{profile.pincode || '600017'}</strong>
                 </p>
               </div>
             </div>
 
             {/* Quick District Selector for Provider */}
-            <div className="flex items-center gap-2 self-start md:self-auto bg-slate-50 p-2 rounded-xl border border-slate-200">
-              <label className="text-xs font-bold text-slate-600 whitespace-nowrap flex items-center gap-1">
+            <div className="flex items-center gap-2 self-start md:self-auto bg-slate-50/90 p-2 rounded-2xl border border-slate-200/80">
+              <label className="text-xs font-bold text-slate-600 whitespace-nowrap flex items-center gap-1 pl-1">
                 <Filter className="h-3.5 w-3.5 text-emerald-600" />
-                <span>Operating District:</span>
+                <span>District:</span>
               </label>
               <select
                 value={profile.district || profile.locationId || 'chennai'}
                 onChange={handleQuickDistrictSwitch}
-                className="text-xs font-extrabold py-1.5 px-3 rounded-lg border border-slate-300 bg-white text-slate-900 focus:border-emerald-600 focus:outline-none shadow-2xs cursor-pointer"
+                className="text-xs font-extrabold py-2 px-3.5 rounded-xl border border-slate-300 bg-white text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none shadow-2xs cursor-pointer"
               >
                 {TAMIL_NADU_DISTRICTS.map((d) => (
                   <option key={d.id} value={d.id}>
@@ -587,7 +592,7 @@ export default function Dashboard() {
               <span className="font-extrabold text-slate-800">
                 Service Localities in {currentDistrictObj?.name || profile.district} ({currentDistrictPlaces.length} Prominent Localities Available):
               </span>
-              <span className="text-[11px] text-slate-500">
+              <span className="text-[11px] text-slate-500 font-medium">
                 Operating Radius: <strong className="text-emerald-700 font-bold">{profile.serviceRadiusKm || 25} km</strong> • Active Places: <strong className="text-emerald-700 font-bold">{Array.isArray(profile.coveredPlaces) ? profile.coveredPlaces.length : 1}</strong>
               </span>
             </div>
@@ -601,12 +606,12 @@ export default function Dashboard() {
                     key={pl}
                     type="button"
                     onClick={() => handleTogglePlaceCoverage(pl)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 border ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all duration-150 flex items-center gap-1.5 border ${
                       isBasePlace
                         ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
                         : isCovered
                         ? 'bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100/70'
-                        : 'bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100 hover:text-slate-800'
+                        : 'bg-slate-50/90 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                     title={isBasePlace ? 'Your Registered Workshop Base (Cannot be disabled)' : isCovered ? 'Active Service Place (Click to remove from service)' : 'Click to add to your service places'}
                   >
@@ -616,7 +621,7 @@ export default function Dashboard() {
                 );
               })}
             </div>
-            <p className="text-[11px] text-slate-500 italic">
+            <p className="text-[11px] text-slate-500 font-medium italic">
               💡 <strong>Instant Local Coverage</strong>: Click any place to toggle service coverage across {currentDistrictObj?.name}. Customers in green places will see your profile first in nearby searches.
             </p>
           </div>
@@ -624,31 +629,35 @@ export default function Dashboard() {
 
         {/* Live Incoming Alert Banner */}
         {latestAlert && (
-          <div className="rounded-xl border border-emerald-300 bg-emerald-50/90 p-5 shadow-sm space-y-3 animate-in fade-in">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bell className="h-5 w-5 text-emerald-700 animate-bounce" />
-                <h3 className="font-bold text-emerald-950 text-base">
-                  NEW APPOINTMENT BROADCAST!
-                </h3>
+          <div className="rounded-3xl border border-emerald-300/80 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-white p-6 shadow-card space-y-4 animate-in fade-in">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex items-center gap-2.5">
+                <div className="h-10 w-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-md shadow-emerald-600/30">
+                  <Bell className="h-5 w-5 animate-bounce" />
+                </div>
+                <div>
+                  <h3 className="font-black text-emerald-950 text-base font-display">
+                    NEW APPOINTMENT BROADCAST!
+                  </h3>
+                  <span className="text-xs font-bold text-emerald-800">
+                    From: {latestAlert.customerName} ({latestAlert.customerPhone})
+                  </span>
+                </div>
               </div>
-              <span className="text-xs font-bold text-emerald-800">
-                From: {latestAlert.customerName} ({latestAlert.customerPhone})
-              </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-medium text-emerald-900 bg-white/70 p-3 rounded-lg border border-emerald-200">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-medium text-emerald-950 bg-white/80 p-4 rounded-2xl border border-emerald-200/80 shadow-2xs">
               <div>
-                <span className="text-[11px] text-slate-500 uppercase font-bold block">Service Requested</span>
-                <strong className="text-sm font-bold">{latestAlert.serviceTitle}</strong>
+                <span className="text-[11px] text-slate-400 uppercase font-bold block">Service Requested</span>
+                <strong className="text-sm font-extrabold text-slate-900 font-display">{latestAlert.serviceTitle}</strong>
               </div>
               <div>
-                <span className="text-[11px] text-slate-500 uppercase font-bold block">Address & Location</span>
-                <span>{latestAlert.customerAddress}</span>
+                <span className="text-[11px] text-slate-400 uppercase font-bold block">Address & Location</span>
+                <span className="text-slate-700 font-semibold">{latestAlert.customerAddress}</span>
               </div>
               <div>
-                <span className="text-[11px] text-slate-500 uppercase font-bold block">Scheduled Time</span>
-                <span>{latestAlert.scheduledDate} at {latestAlert.scheduledTime}</span>
+                <span className="text-[11px] text-slate-400 uppercase font-bold block">Scheduled Time</span>
+                <span className="text-emerald-700 font-extrabold">{latestAlert.scheduledDate} at {latestAlert.scheduledTime}</span>
               </div>
             </div>
 
@@ -659,7 +668,7 @@ export default function Dashboard() {
                   handleUpdateStatus(latestAlert.id, 'ACCEPTED');
                   setLatestAlert(null);
                 }}
-                className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-lg shadow-sm"
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-sm shadow-emerald-600/25 transition"
               >
                 Accept Appointment
               </button>
@@ -669,7 +678,7 @@ export default function Dashboard() {
                   handleUpdateStatus(latestAlert.id, 'CANCELLED');
                   setLatestAlert(null);
                 }}
-                className="px-4 py-2 bg-white border border-emerald-300 text-emerald-900 font-bold text-xs rounded-lg hover:bg-emerald-100"
+                className="px-5 py-2.5 bg-white border border-slate-300 text-slate-700 font-bold text-xs rounded-xl hover:bg-slate-50 transition"
               >
                 Decline Request
               </button>
@@ -679,51 +688,56 @@ export default function Dashboard() {
 
         {/* Toast Notification */}
         {notificationMsg && (
-          <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-xs font-bold text-blue-900 flex items-center justify-between">
-            <span>{notificationMsg}</span>
-            <button onClick={() => setNotificationMsg('')} className="text-blue-500 hover:text-blue-800">
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs font-bold text-emerald-900 flex items-center justify-between shadow-2xs">
+            <span className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              <span>{notificationMsg}</span>
+            </span>
+            <button onClick={() => setNotificationMsg('')} className="text-emerald-500 hover:text-emerald-800 p-1">
               <X className="h-4 w-4" />
             </button>
           </div>
         )}
 
         {/* Executive Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-          <div className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs space-y-1">
-            <span className="text-xs font-bold text-slate-500 uppercase">Total Revenue</span>
-            <p className="text-2xl font-black text-slate-900">${earningsAnalytics.totalEarnings}.00</p>
-            <span className="text-[11px] text-emerald-600 font-medium">Earned from bookings</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+            <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Total Revenue</span>
+            <p className="text-3xl font-black text-slate-900 font-display">${earningsAnalytics.totalEarnings}.00</p>
+            <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+              <span>✓</span> Earned from bookings
+            </span>
           </div>
-          <div className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs space-y-1">
-            <span className="text-xs font-bold text-slate-500 uppercase">Active Appointments</span>
-            <p className="text-2xl font-black text-blue-600">{earningsAnalytics.acceptedJobsCount}</p>
-            <span className="text-[11px] text-slate-500">Accepted & en-route</span>
+          <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+            <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Active Appointments</span>
+            <p className="text-3xl font-black text-emerald-700 font-display">{earningsAnalytics.acceptedJobsCount}</p>
+            <span className="text-[11px] text-slate-500 font-medium">Accepted & en-route</span>
           </div>
-          <div className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs space-y-1">
-            <span className="text-xs font-bold text-slate-500 uppercase">Pending Requests</span>
-            <p className="text-2xl font-black text-amber-600">{earningsAnalytics.pendingJobsCount}</p>
-            <span className="text-[11px] text-slate-500">Awaiting your response</span>
+          <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+            <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Pending Requests</span>
+            <p className="text-3xl font-black text-amber-600 font-display">{earningsAnalytics.pendingJobsCount}</p>
+            <span className="text-[11px] text-slate-500 font-medium">Awaiting your response</span>
           </div>
-          <div className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs space-y-1">
-            <span className="text-xs font-bold text-slate-500 uppercase">Average Customer Rating</span>
-            <p className="text-2xl font-black text-slate-900 flex items-center gap-1">
-              <Star className="h-5 w-5 text-amber-500 fill-amber-500" />
+          <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+            <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Average Customer Rating</span>
+            <p className="text-3xl font-black text-slate-900 flex items-center gap-1.5 font-display">
+              <Star className="h-6 w-6 text-amber-500 fill-amber-500" />
               <span>{earningsAnalytics.avgRating}</span>
             </p>
-            <span className="text-[11px] text-slate-500">From verified customer reviews</span>
+            <span className="text-[11px] text-slate-500 font-medium">From verified customer reviews</span>
           </div>
         </div>
 
         {/* Navigation Tabs Bar */}
-        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-4">
+          <div className="p-1.5 bg-slate-100/80 border border-slate-200/80 rounded-2xl flex flex-wrap gap-1.5 shadow-2xs">
             <button
               type="button"
               onClick={() => setActiveTab('ACCEPTED')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeTab === 'ACCEPTED'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'bg-white text-slate-700 hover:bg-slate-200/70 border border-slate-200'
+                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <CheckCircle2 className="h-4 w-4" />
@@ -732,10 +746,10 @@ export default function Dashboard() {
             <button
               type="button"
               onClick={() => setActiveTab('PENDING')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeTab === 'PENDING'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'bg-white text-slate-700 hover:bg-slate-200/70 border border-slate-200'
+                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <Clock className="h-4 w-4" />
@@ -744,10 +758,10 @@ export default function Dashboard() {
             <button
               type="button"
               onClick={() => setActiveTab('ALL')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeTab === 'ALL'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'bg-white text-slate-700 hover:bg-slate-200/70 border border-slate-200'
+                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <Briefcase className="h-4 w-4" />
@@ -756,10 +770,10 @@ export default function Dashboard() {
             <button
               type="button"
               onClick={() => setActiveTab('EARNINGS')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeTab === 'EARNINGS'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'bg-white text-slate-700 hover:bg-slate-200/70 border border-slate-200'
+                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <TrendingUp className="h-4 w-4" />
@@ -768,25 +782,25 @@ export default function Dashboard() {
             <button
               type="button"
               onClick={() => setActiveTab('ROUTE_OPTIMIZER')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeTab === 'ROUTE_OPTIMIZER'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'bg-white text-slate-700 hover:bg-slate-200/70 border border-slate-200'
+                  ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
-              <Navigation className="h-4 w-4 text-blue-500" />
+              <Navigation className="h-4 w-4" />
               <span>AI Route Optimizer</span>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('PORTFOLIO')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
                 activeTab === 'PORTFOLIO'
-                  ? 'bg-purple-600 text-white shadow-xs'
-                  : 'bg-white text-slate-700 hover:bg-slate-200/70 border border-slate-200'
+                  ? 'bg-purple-600 text-white shadow-sm shadow-purple-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
-              <Award className="h-4 w-4 text-purple-500" />
+              <Award className="h-4 w-4" />
               <span>Done Work & Portfolio ({portfolioList.length})</span>
             </button>
           </div>
@@ -796,10 +810,10 @@ export default function Dashboard() {
             <button
               type="button"
               onClick={() => setDistrictFilterOnly(!districtFilterOnly)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition border ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition border shadow-2xs self-start sm:self-auto ${
                 districtFilterOnly
-                  ? 'bg-blue-50 text-blue-800 border-blue-300'
-                  : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-50'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-white text-slate-600 border-slate-200/90 hover:bg-slate-50'
               }`}
             >
               🎯 District Only Filter ({districtFilterOnly ? 'ON' : 'OFF'})
@@ -811,65 +825,69 @@ export default function Dashboard() {
         {activeTab !== 'EARNINGS' && activeTab !== 'ROUTE_OPTIMIZER' && (
           <div className="space-y-4">
             {filteredBookings.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center space-y-3">
-                <Briefcase className="h-8 w-8 text-slate-400 mx-auto" />
-                <h3 className="text-base font-bold text-slate-800">No Appointments Found</h3>
-                <p className="text-xs text-slate-500">
+              <div className="rounded-3xl border border-dashed border-slate-300/90 bg-white p-12 sm:p-16 text-center space-y-3 shadow-subtle">
+                <div className="h-16 w-16 mx-auto rounded-3xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 shadow-2xs">
+                  <Briefcase className="h-8 w-8 text-emerald-600" />
+                </div>
+                <h3 className="text-base font-extrabold text-slate-900 font-display">No Appointments Found</h3>
+                <p className="text-xs text-slate-500 font-medium max-w-sm mx-auto">
                   There are no customer bookings in this status section for {activeProviderName}.
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {filteredBookings.map((b) => (
                   <div
                     key={b.id}
-                    className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs flex flex-col justify-between space-y-4"
+                    className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover hover:border-emerald-200/80 transition-all duration-200 flex flex-col justify-between space-y-5"
                   >
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs text-slate-500">{b.id}</span>
-                        <span className="font-black text-emerald-700 text-base">${b.amount}.00</span>
+                        <span className="font-extrabold text-xs text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200/80 font-display">
+                          {b.id}
+                        </span>
+                        <span className="font-black text-slate-900 text-xl font-display">${b.amount}.00</span>
                       </div>
 
-                      <h3 className="font-bold text-slate-900 text-base">{b.serviceTitle}</h3>
+                      <h3 className="font-extrabold text-slate-900 text-lg font-display">{b.serviceTitle}</h3>
 
-                      <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs font-medium space-y-1">
-                        <p className="flex items-center gap-1.5 font-bold text-slate-800">
-                          <User className="h-3.5 w-3.5 text-blue-600" />
-                          <span>Customer: {b.customerName} ({b.customerPhone})</span>
+                      <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/60 text-xs font-medium space-y-2">
+                        <p className="flex items-center gap-2 font-bold text-slate-800">
+                          <User className="h-4 w-4 text-emerald-600 shrink-0" />
+                          <span>Customer: <strong className="text-slate-900 font-extrabold">{b.customerName}</strong> ({b.customerPhone})</span>
                         </p>
-                        <p className="flex items-center gap-1.5 text-slate-600">
-                          <MapPin className="h-3.5 w-3.5 text-slate-400" />
+                        <p className="flex items-center gap-2 text-slate-600">
+                          <MapPin className="h-4 w-4 text-slate-400 shrink-0" />
                           <span>{b.customerAddress} ({b.customerLocation})</span>
                         </p>
-                        <p className="flex items-center gap-1.5 text-slate-600">
-                          <Clock className="h-3.5 w-3.5 text-slate-400" />
-                          <span>{b.scheduledDate} at {b.scheduledTime}</span>
+                        <p className="flex items-center gap-2 text-slate-600">
+                          <Clock className="h-4 w-4 text-slate-400 shrink-0" />
+                          <span className="font-bold text-emerald-800">{b.scheduledDate} at {b.scheduledTime}</span>
                         </p>
                       </div>
 
                       {b.notes && (
-                        <p className="text-xs text-slate-600 bg-amber-50/60 p-2.5 rounded-lg border border-amber-200">
-                          <strong className="text-amber-900">Notes:</strong> {b.notes}
+                        <p className="text-xs text-slate-600 bg-amber-50/70 p-3 rounded-xl border border-amber-200/80 font-medium">
+                          <strong className="text-amber-900 font-extrabold">Notes:</strong> {b.notes}
                         </p>
                       )}
 
                       {/* Reschedule Proposal Notice */}
                       {b.rescheduleStatus === 'PROPOSED_BY_PROVIDER' && (
-                        <div className="rounded-xl bg-amber-50 border border-amber-200 p-2.5 text-xs text-amber-900 flex items-center justify-between gap-2 shadow-xs">
-                          <div className="flex items-center gap-1.5">
+                        <div className="rounded-2xl bg-amber-50 border border-amber-200 p-3 text-xs text-amber-900 flex items-center justify-between gap-2 shadow-2xs">
+                          <div className="flex items-center gap-2">
                             <Clock className="h-4 w-4 text-amber-600 shrink-0" />
                             <span>
                               Proposed time change: <strong>{b.proposedTime}</strong> ({b.proposedDate || b.scheduledDate}). Awaiting customer response.
                             </span>
                           </div>
-                          <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-200 text-amber-900 shrink-0">
+                          <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-200 text-amber-900 shrink-0">
                             Sent to Customer
                           </span>
                         </div>
                       )}
                       {b.rescheduleStatus === 'ACCEPTED_BY_CUSTOMER' && (
-                        <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-2 text-xs text-emerald-900 flex items-center gap-1.5 shadow-xs">
+                        <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-900 flex items-center gap-2 shadow-2xs">
                           <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
                           <span>
                             Customer confirmed your proposed time: <strong>{b.scheduledTime}</strong> on{' '}
@@ -880,9 +898,9 @@ export default function Dashboard() {
                     </div>
 
                     {/* Status Actions */}
-                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                    <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                       <div className="text-xs">
-                        <span className="font-bold text-slate-500 block">Status:</span>
+                        <span className="font-bold text-slate-400 block text-[11px] uppercase">Status:</span>
                         <span className="font-extrabold text-slate-900">{b.status}</span>
                       </div>
 
@@ -892,7 +910,7 @@ export default function Dashboard() {
                           <button
                             type="button"
                             onClick={() => handleOpenReschedule(b)}
-                            className="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-bold text-xs rounded-lg transition flex items-center gap-1 shadow-xs"
+                            className="px-3 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-extrabold text-xs rounded-xl transition flex items-center gap-1.5 shadow-2xs"
                             title="Propose adjusted appointment time"
                           >
                             <Clock className="h-3.5 w-3.5 text-amber-600" />
@@ -904,10 +922,10 @@ export default function Dashboard() {
                           <button
                             type="button"
                             onClick={() => handleToggleGpsBroadcast(b.id)}
-                            className={`px-3 py-1.5 font-bold text-xs rounded-lg transition flex items-center gap-1.5 ${
+                            className={`px-3.5 py-2 font-extrabold text-xs rounded-xl transition flex items-center gap-1.5 shadow-sm ${
                               activeBroadcastingBookingId === b.id
                                 ? 'bg-red-600 hover:bg-red-700 text-white animate-pulse'
-                                : 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
+                                : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/25'
                             }`}
                           >
                             <Radio className="h-3.5 w-3.5" />
@@ -924,7 +942,7 @@ export default function Dashboard() {
                           <button
                             type="button"
                             onClick={() => handleIssueWarranty(b)}
-                            className="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-bold text-xs rounded-lg transition flex items-center gap-1 shadow-xs"
+                            className="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-extrabold text-xs rounded-xl transition flex items-center gap-1.5 shadow-2xs"
                           >
                             <Award className="h-3.5 w-3.5" />
                             <span>Issue Warranty</span>
@@ -935,7 +953,7 @@ export default function Dashboard() {
                           <button
                             type="button"
                             onClick={() => handleUpdateStatus(b.id, 'ACCEPTED')}
-                            className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-xs"
+                            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-sm shadow-emerald-600/25 transition"
                           >
                             Accept Request
                           </button>
@@ -944,7 +962,7 @@ export default function Dashboard() {
                           <button
                             type="button"
                             onClick={() => handleUpdateStatus(b.id, 'IN_PROGRESS')}
-                            className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg shadow-xs"
+                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-sm shadow-indigo-600/25 transition"
                           >
                             En Route
                           </button>
@@ -953,7 +971,7 @@ export default function Dashboard() {
                           <button
                             type="button"
                             onClick={() => handleUpdateStatus(b.id, 'COMPLETED')}
-                            className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-xs"
+                            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-sm shadow-emerald-600/25 transition"
                           >
                             Complete Job
                           </button>
@@ -969,14 +987,16 @@ export default function Dashboard() {
 
         {/* TAB CONTENT: AI ROUTE OPTIMIZER */}
         {activeTab === 'ROUTE_OPTIMIZER' && (
-          <ProviderRouteOptimizer
-            appointments={acceptedBookings}
-            providerBaseLocation={{
-              lat: profile.latitude || 13.0827,
-              lng: profile.longitude || 80.2707,
-              label: profile.place ? `${profile.place} Workshop` : 'Base Workshop',
-            }}
-          />
+          <div className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-card">
+            <ProviderRouteOptimizer
+              appointments={acceptedBookings}
+              providerBaseLocation={{
+                lat: profile.latitude || 13.0827,
+                lng: profile.longitude || 80.2707,
+                label: profile.place ? `${profile.place} Workshop` : 'Base Workshop',
+              }}
+            />
+          </div>
         )}
 
         {/* TAB CONTENT 2: EARNINGS ANALYTICS & REVIEWS */}
@@ -984,57 +1004,68 @@ export default function Dashboard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-xl font-black text-slate-900 tracking-tight font-display">
                   Earnings Analytics & Customer Feedback
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 font-medium">
                   Revenue tracking, completed job counts, and verified customer ratings for {activeProviderName}
                 </p>
               </div>
             </div>
 
             {/* Financial Revenue Summary Box */}
-            <div className="rounded-xl bg-white border border-slate-200 p-6 shadow-xs space-y-4">
-              <h3 className="font-bold text-slate-900 text-sm uppercase tracking-wider">
-                Revenue & Performance Metrics
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-100 pt-4">
-                <div>
-                  <span className="text-xs text-slate-500 font-bold block">Fulfillable Gross Revenue</span>
-                  <p className="text-3xl font-black text-emerald-700 mt-1">${earningsAnalytics.totalEarnings}.00</p>
-                </div>
-                <div>
-                  <span className="text-xs text-slate-500 font-bold block">Completed Jobs Count</span>
-                  <p className="text-3xl font-black text-slate-900 mt-1">{earningsAnalytics.completedJobsCount}</p>
-                </div>
-                <div>
-                  <span className="text-xs text-slate-500 font-bold block">Active Customer Ratings</span>
-                  <p className="text-3xl font-black text-amber-500 mt-1">{earningsAnalytics.reviewsCount} reviews</p>
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+              <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+                <span className="text-[11px] text-slate-500 font-extrabold uppercase tracking-wider block">Fulfillable Gross Revenue</span>
+                <p className="text-3xl font-black text-emerald-700 font-display">${earningsAnalytics.totalEarnings}.00</p>
+                <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+                  <span>✓</span> Direct platform earnings
+                </span>
+              </div>
+              <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+                <span className="text-[11px] text-slate-500 font-extrabold uppercase tracking-wider block">Completed Jobs Count</span>
+                <p className="text-3xl font-black text-slate-900 font-display">{earningsAnalytics.completedJobsCount}</p>
+                <span className="text-[11px] text-slate-500 font-medium">Fulfilled customer orders</span>
+              </div>
+              <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+                <span className="text-[11px] text-slate-500 font-extrabold uppercase tracking-wider block">Active Customer Ratings</span>
+                <p className="text-3xl font-black text-amber-500 font-display flex items-center gap-1.5">
+                  <Star className="h-6 w-6 text-amber-500 fill-amber-500" />
+                  <span>{earningsAnalytics.reviewsCount} reviews</span>
+                </p>
+                <span className="text-[11px] text-slate-500 font-medium">Average score: {earningsAnalytics.avgRating}/5</span>
               </div>
             </div>
 
             {/* Customer Review Feed */}
-            <div className="rounded-xl bg-white border border-slate-200 p-6 shadow-xs space-y-4">
-              <h3 className="font-bold text-slate-900 text-sm">Customer Feedback & Rating Log</h3>
+            <div className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-7 shadow-card space-y-5">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base font-display">Customer Feedback & Rating Log</h3>
+                  <p className="text-xs text-slate-500 font-medium">Verified customer sentiments and comments</p>
+                </div>
+                <span className="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                  {earningsAnalytics.reviews.length} Verified Reviews
+                </span>
+              </div>
 
               {earningsAnalytics.reviews.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-400">
-                  No customer reviews received yet.
+                <div className="p-12 text-center text-xs text-slate-400 font-medium">
+                  No customer reviews received yet. Completed bookings with customer ratings will appear here.
                 </div>
               ) : (
-                <div className="space-y-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {earningsAnalytics.reviews.map((rev) => (
-                    <div key={rev.id} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs">
+                    <div key={rev.id} className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200/70 space-y-2 text-xs">
                       <div className="flex items-center justify-between">
                         <strong className="text-slate-900 text-sm font-bold">{rev.customerName}</strong>
-                        <span className="flex items-center gap-1 font-bold text-amber-600">
-                          <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
-                          {rev.rating}/5
+                        <span className="flex items-center gap-1 font-extrabold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
+                          <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                          <span>{rev.rating}/5</span>
                         </span>
                       </div>
-                      <p className="text-blue-700 font-bold">{rev.serviceTitle}</p>
-                      <p className="text-slate-700 italic">"{rev.comment}"</p>
+                      <p className="text-emerald-700 font-extrabold">{rev.serviceTitle}</p>
+                      <p className="text-slate-700 italic leading-relaxed font-medium">"{rev.comment}"</p>
                       <span className="text-[11px] text-slate-400 block pt-1">{rev.date}</span>
                     </div>
                   ))}
@@ -1047,12 +1078,12 @@ export default function Dashboard() {
         {/* TAB CONTENT: DONE WORK & PORTFOLIO SHOWCASE */}
         {activeTab === 'PORTFOLIO' && (
           <div className="space-y-6 animate-fadeIn">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/90 shadow-card">
               <div>
-                <span className="px-3 py-1 rounded-md bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200">
+                <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-extrabold border border-purple-200">
                   Technician Portfolio & Work Showcase
                 </span>
-                <h2 className="text-xl font-extrabold text-slate-900 mt-1 font-display">
+                <h2 className="text-xl font-black text-slate-900 mt-2 font-display">
                   Upload Done Work & Previous Projects
                 </h2>
                 <p className="text-xs text-slate-500 font-medium">
@@ -1063,7 +1094,7 @@ export default function Dashboard() {
               <button
                 type="button"
                 onClick={() => setIsUploadWorkOpen(true)}
-                className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-extrabold shadow-md transition flex items-center gap-2 self-start sm:self-center"
+                className="px-5 py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-extrabold shadow-md shadow-purple-600/25 transition flex items-center gap-2 self-start sm:self-center"
               >
                 <Plus className="h-4 w-4" />
                 <span>Upload Completed Work</span>
@@ -1072,18 +1103,20 @@ export default function Dashboard() {
 
             {/* Portfolio Grid */}
             {portfolioList.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center space-y-3">
-                <div className="mx-auto w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center">
-                  <ImageIcon className="h-6 w-6" />
+              <div className="rounded-3xl border border-dashed border-slate-300/90 bg-white p-12 sm:p-16 text-center space-y-4 shadow-subtle">
+                <div className="mx-auto w-16 h-16 rounded-3xl bg-purple-50 text-purple-600 flex items-center justify-center border border-purple-100 shadow-2xs">
+                  <ImageIcon className="h-8 w-8 text-purple-600" />
                 </div>
-                <h3 className="text-base font-bold text-slate-800">No Projects Uploaded Yet</h3>
-                <p className="text-xs text-slate-500 max-w-md mx-auto">
-                  Show off your craftsmanship! Upload photos of recent repairs, installations, painting, carpentry, or renovations you've successfully completed.
-                </p>
+                <div className="max-w-md mx-auto space-y-1">
+                  <h3 className="text-base font-extrabold text-slate-900 font-display">No Projects Uploaded Yet</h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    Show off your craftsmanship! Upload photos of recent repairs, installations, painting, carpentry, or renovations you've successfully completed.
+                  </p>
+                </div>
                 <button
                   type="button"
                   onClick={() => setIsUploadWorkOpen(true)}
-                  className="px-4 py-2 bg-purple-600 text-white text-xs font-bold rounded-xl shadow-xs"
+                  className="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl shadow-sm shadow-purple-600/20 transition"
                 >
                   Upload First Project
                 </button>
@@ -1093,21 +1126,21 @@ export default function Dashboard() {
                 {portfolioList.map((work) => (
                   <div
                     key={work.id}
-                    className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs hover:border-purple-300 transition flex flex-col group"
+                    className="rounded-3xl bg-white border border-slate-200/90 overflow-hidden shadow-card hover:shadow-card-hover hover:border-purple-200 transition-all duration-200 flex flex-col group"
                   >
-                    <div className="relative h-48 bg-slate-100 overflow-hidden">
+                    <div className="relative h-52 bg-slate-100 overflow-hidden">
                       <img
                         src={work.imageUrl}
                         alt={work.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                       />
-                      <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-wider">
+                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-wider">
                         {work.category}
                       </span>
                       <button
                         type="button"
                         onClick={() => handleDeleteWork(work.id)}
-                        className="absolute top-3 right-3 p-1.5 rounded-xl bg-white/90 text-red-600 hover:bg-red-50 transition shadow-sm"
+                        className="absolute top-3 right-3 p-2 rounded-xl bg-white/90 text-red-600 hover:bg-red-50 transition shadow-sm"
                         title="Delete project"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -1116,7 +1149,7 @@ export default function Dashboard() {
 
                     <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
                       <div>
-                        <h4 className="font-extrabold text-slate-900 text-sm font-display">{work.title}</h4>
+                        <h4 className="font-extrabold text-slate-900 text-base font-display">{work.title}</h4>
                         {work.description && (
                           <p className="text-xs text-slate-600 mt-1 line-clamp-3 leading-relaxed font-medium">
                             {work.description}
@@ -1140,16 +1173,24 @@ export default function Dashboard() {
 
       {/* EDIT PROFILE & SKILLS MODAL */}
       {isEditingProfile && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
-          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl border border-slate-200 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h3 className="font-bold text-slate-900 text-base">Edit Provider Profile & Skills</h3>
-              <button onClick={() => setIsEditingProfile(false)} className="text-slate-400 hover:text-slate-600">
-                <X className="h-4 w-4" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-slate-200/90 space-y-5 my-auto animate-fadeIn">
+            <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="h-10 w-10 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200 shadow-2xs">
+                  <Edit3 className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base font-display">Edit Provider Profile & Skills</h3>
+                  <p className="text-xs text-slate-500 font-medium">Update rates, service radius, and specialization skills</p>
+                </div>
+              </div>
+              <button onClick={() => setIsEditingProfile(false)} className="text-slate-400 hover:text-slate-600 p-1 rounded-xl">
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveProfile} className="space-y-3 text-xs font-medium">
+            <form onSubmit={handleSaveProfile} className="space-y-3.5 text-xs font-medium">
               <div>
                 <label className="block font-bold text-slate-700 mb-1">Technician Name</label>
                 <input
@@ -1157,7 +1198,7 @@ export default function Dashboard() {
                   required
                   value={profileEditForm.name || activeProviderName}
                   onChange={(e) => setProfileEditForm({ ...profileEditForm, name: e.target.value })}
-                  className="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:border-emerald-600 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none transition"
                 />
               </div>
 
@@ -1169,7 +1210,7 @@ export default function Dashboard() {
                     required
                     value={profileEditForm.hourlyRate}
                     onChange={(e) => setProfileEditForm({ ...profileEditForm, hourlyRate: Number(e.target.value) })}
-                    className="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:border-emerald-600 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none transition"
                   />
                 </div>
                 <div>
@@ -1179,13 +1220,13 @@ export default function Dashboard() {
                     required
                     value={profileEditForm.serviceRadiusKm}
                     onChange={(e) => setProfileEditForm({ ...profileEditForm, serviceRadiusKm: Number(e.target.value) })}
-                    className="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:border-emerald-600 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none transition"
                   />
                 </div>
               </div>
 
               {/* Tamil Nadu District & Area */}
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">Operating District</label>
                   <select
@@ -1200,7 +1241,7 @@ export default function Dashboard() {
                         place: pls[0] || 'Central Area',
                       });
                     }}
-                    className="w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold bg-white focus:border-emerald-600 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs font-semibold bg-white text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none transition"
                   >
                     {TAMIL_NADU_DISTRICTS.map((d) => (
                       <option key={d.id} value={d.id}>
@@ -1214,7 +1255,7 @@ export default function Dashboard() {
                   <select
                     value={profileEditForm.place || ''}
                     onChange={(e) => setProfileEditForm({ ...profileEditForm, place: e.target.value })}
-                    className="w-full rounded-lg border border-slate-300 p-2 text-xs font-semibold bg-white focus:border-emerald-600 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs font-semibold bg-white text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none transition"
                   >
                     {getPlacesForDistrict(profileEditForm.district || profileEditForm.locationId || 'chennai').map((pl) => (
                       <option key={pl} value={pl}>
@@ -1232,7 +1273,7 @@ export default function Dashboard() {
                   placeholder="e.g. No. 45, 1st Cross Street, Near Bus Stand"
                   value={profileEditForm.address || ''}
                   onChange={(e) => setProfileEditForm({ ...profileEditForm, address: e.target.value })}
-                  className="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:border-emerald-600 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none transition"
                 />
               </div>
 
@@ -1244,7 +1285,7 @@ export default function Dashboard() {
                   placeholder="e.g. 600017"
                   value={profileEditForm.pincode || ''}
                   onChange={(e) => setProfileEditForm({ ...profileEditForm, pincode: e.target.value })}
-                  className="w-full rounded-lg border border-slate-300 p-2.5 text-sm focus:border-emerald-600 focus:outline-none"
+                  className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 focus:outline-none transition"
                 />
               </div>
 
@@ -1257,12 +1298,12 @@ export default function Dashboard() {
                     value={newSkillInput}
                     onChange={(e) => setNewSkillInput(e.target.value)}
                     placeholder="Add new skill..."
-                    className="flex-1 rounded-lg border border-slate-300 px-3 py-1.5 text-xs focus:border-emerald-600 focus:outline-none"
+                    className="flex-1 rounded-xl border border-slate-300 px-3 py-2 text-xs focus:border-emerald-600 focus:outline-none transition"
                   />
                   <button
                     type="button"
                     onClick={handleAddSkill}
-                    className="px-3 py-1.5 bg-emerald-600 text-white font-bold rounded-lg text-xs"
+                    className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs shadow-2xs transition"
                   >
                     Add Skill
                   </button>
@@ -1271,7 +1312,7 @@ export default function Dashboard() {
                   {(profileEditForm.skills || []).map((sk, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-700 flex items-center gap-1.5"
+                      className="px-3 py-1 rounded-lg bg-slate-100 border border-slate-200/80 text-[11px] font-bold text-slate-700 flex items-center gap-1.5"
                     >
                       <span>{sk}</span>
                       <button
@@ -1286,17 +1327,17 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="pt-2 flex gap-2">
+              <div className="pt-2 flex gap-3">
                 <button
                   type="button"
                   onClick={() => setIsEditingProfile(false)}
-                  className="flex-1 py-2.5 rounded-lg border border-slate-300 font-bold text-slate-700 hover:bg-slate-100"
+                  className="flex-1 py-2.5 rounded-xl border border-slate-300 font-bold text-slate-700 hover:bg-slate-50 transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                  className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold shadow-sm shadow-emerald-600/25 transition"
                 >
                   Save Profile
                 </button>

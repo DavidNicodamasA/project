@@ -4,11 +4,30 @@
 
 @layer base {
   :root {
-    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', 'Manrope', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
+    @apply bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white;
+  }
+
+  /* Custom Clean Scrollbars for SaaS dashboard */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.4);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.6);
   }
 
   button,
@@ -29,6 +48,41 @@
 }
 
 @layer components {
+  /* Premium SaaS Glassmorphism & Card Styles */
+  .saas-card {
+    @apply bg-white rounded-2xl border border-slate-200/80 shadow-subtle transition-all duration-200 hover:border-slate-300 hover:shadow-card;
+  }
+
+  .saas-card-blue {
+    @apply bg-white rounded-2xl border border-blue-100 shadow-subtle transition-all duration-200 hover:border-blue-300 hover:shadow-card hover:-translate-y-0.5;
+  }
+
+  .saas-card-emerald {
+    @apply bg-white rounded-2xl border border-emerald-100 shadow-subtle transition-all duration-200 hover:border-emerald-300 hover:shadow-card hover:-translate-y-0.5;
+  }
+
+  .glass-card-customer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(219, 234, 254, 0.8);
+    box-shadow: 0 4px 20px -2px rgba(37, 99, 235, 0.05);
+  }
+
+  .glass-card-provider {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(209, 250, 229, 0.8);
+    box-shadow: 0 4px 20px -2px rgba(5, 150, 105, 0.05);
+  }
+
+  .customer-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-blue-600/20 transition-all duration-150 active:scale-[0.98] cursor-pointer;
+  }
+
+  .provider-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all duration-150 active:scale-[0.98] cursor-pointer;
+  }
+
   .auth-page {
     background: #f5f8fc;
     background-image: radial-gradient(circle at 15% 15%, rgba(14, 165, 233, 0.12), transparent 28rem), radial-gradient(circle at 85% 90%, rgba(15, 118, 110, 0.1), transparent 25rem);

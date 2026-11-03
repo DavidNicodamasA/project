@@ -377,61 +377,64 @@ export default function CustomerDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans text-slate-900 pb-16">
+    <div className="min-h-screen bg-slate-50/60 font-sans text-slate-900 pb-20">
       <Navbar onOpenCustomerProfile={handleOpenCustomerProfileModal} />
 
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
         {/* Top Header Card */}
-        <div className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-md bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">
-                Customer Account
-              </span>
-              <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
-                <MapPin className="h-3.5 w-3.5 text-blue-600" />
-                {currentActiveLocationDisplay}
-              </span>
+        <div className="relative rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-card overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-100/50 via-indigo-50/30 to-transparent rounded-full blur-3xl -z-10 pointer-events-none" />
+          
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+            <div className="space-y-2.5 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200/80 shadow-2xs">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
+                  <span>Customer Portal</span>
+                </span>
+                <span className="text-xs text-slate-500 font-semibold flex items-center gap-1.5 bg-slate-100/80 px-3 py-1 rounded-full border border-slate-200/60">
+                  <MapPin className="h-3.5 w-3.5 text-blue-600" />
+                  <span>{currentActiveLocationDisplay}</span>
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-display">
+                Welcome back, {activeCustomerName}
+              </h1>
+              <p className="text-sm text-slate-600 font-medium leading-relaxed">
+                Connect with verified local technicians near you, get instant AI problem diagnosis, and track live repairs in real-time.
+              </p>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Welcome back, {activeCustomerName}
-            </h1>
-            <p className="text-sm text-slate-600">
-              Browse online service technicians near your location, schedule appointments, and track receipts.
-            </p>
-          </div>
 
-          {/* Quick Metrics */}
-          <div className="flex items-center gap-4 border-t md:border-t-0 md:border-l border-slate-200 pt-4 md:pt-0 md:pl-6">
-            <div className="text-center px-3">
-              <p className="text-2xl font-black text-slate-900">{providers.length}</p>
-              <p className="text-xs text-slate-500 font-bold uppercase">Online Techs</p>
-            </div>
-            <div className="h-8 w-px bg-slate-200" />
-            <div className="text-center px-3">
-              <p className="text-2xl font-black text-blue-600">{myBookings.length}</p>
-              <p className="text-xs text-slate-500 font-bold uppercase">My Bookings</p>
-            </div>
-            <div className="h-8 w-px bg-slate-200" />
-            <div className="text-center px-3">
-              <p className="text-2xl font-black text-emerald-600">${invoiceData.totalSpent}</p>
-              <p className="text-xs text-slate-500 font-bold uppercase">Total Spent</p>
+            {/* Quick Metrics */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 p-2 sm:p-3 rounded-2xl bg-slate-50/90 border border-slate-200/80 backdrop-blur-xs">
+              <div className="text-center px-2 sm:px-4 py-2">
+                <p className="text-2xl sm:text-3xl font-black text-slate-900 font-display">{providers.length}</p>
+                <p className="text-[10px] sm:text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Online Techs</p>
+              </div>
+              <div className="text-center px-2 sm:px-4 py-2 border-x border-slate-200/80">
+                <p className="text-2xl sm:text-3xl font-black text-blue-600 font-display">{myBookings.length}</p>
+                <p className="text-[10px] sm:text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">My Bookings</p>
+              </div>
+              <div className="text-center px-2 sm:px-4 py-2">
+                <p className="text-2xl sm:text-3xl font-black text-emerald-600 font-display">${invoiceData.totalSpent}</p>
+                <p className="text-[10px] sm:text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">Total Spent</p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Navigation Tabs Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
-          <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 pb-3">
+          <div className="flex flex-wrap items-center gap-2 p-1 bg-slate-100/80 rounded-2xl border border-slate-200/80">
             <button
               type="button"
               onClick={() => setActiveTab('browse')}
-              className={`px-5 py-2.5 rounded-2xl text-sm font-extrabold transition flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
                 activeTab === 'browse'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                  : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <Compass className="h-4 w-4" />
@@ -440,10 +443,10 @@ export default function CustomerDashboard() {
             <button
               type="button"
               onClick={() => setActiveTab('my_bookings')}
-              className={`px-5 py-2.5 rounded-2xl text-sm font-extrabold transition flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
                 activeTab === 'my_bookings'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                  : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <Calendar className="h-4 w-4" />
@@ -452,10 +455,10 @@ export default function CustomerDashboard() {
             <button
               type="button"
               onClick={() => setActiveTab('appliances')}
-              className={`px-5 py-2.5 rounded-2xl text-sm font-extrabold transition flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
                 activeTab === 'appliances'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                  : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <Zap className="h-4 w-4 text-amber-500" />
@@ -464,14 +467,14 @@ export default function CustomerDashboard() {
             <button
               type="button"
               onClick={() => setActiveTab('invoices')}
-              className={`px-5 py-2.5 rounded-2xl text-sm font-extrabold transition flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-2 ${
                 activeTab === 'invoices'
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                  : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
               }`}
             >
               <Receipt className="h-4 w-4" />
-              <span>Expense & Invoicing Hub</span>
+              <span>Invoices & Receipts</span>
             </button>
           </div>
 
@@ -480,7 +483,7 @@ export default function CustomerDashboard() {
             <button
               type="button"
               onClick={() => setIsImageProblemDetectorOpen(true)}
-              className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-md shadow-blue-600/20 transition hover:scale-105"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-md shadow-blue-600/20 transition-all hover:scale-105 active:scale-95"
             >
               <Camera className="h-4 w-4" />
               <span>AI Photo Diagnosis</span>
@@ -490,7 +493,7 @@ export default function CustomerDashboard() {
             <button
               type="button"
               onClick={() => handleOpenPriceEstimator('plumbing', 3.5)}
-              className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-md shadow-indigo-500/20 transition hover:scale-105"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-md shadow-indigo-500/20 transition-all hover:scale-105 active:scale-95"
             >
               <Sparkles className="h-4 w-4" />
               <span>AI Price Estimator</span>
@@ -513,19 +516,24 @@ export default function CustomerDashboard() {
           <div className="space-y-6">
             
             {/* Search & Location Filter Box with Service Dropdown */}
-            <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-sm space-y-4">
-              <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1.1fr_220px_160px] gap-3.5 items-end">
+            <div className="rounded-3xl bg-white border border-slate-200/90 p-5 sm:p-7 shadow-card space-y-5">
+              <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1.1fr_220px_160px] gap-4 items-end">
                 {/* Search Service Dropdown with ALL services */}
                 <div>
                   <label className="text-xs font-black text-slate-700 block mb-1.5 flex items-center justify-between">
-                    <span>🔍 Service Search Dropdown</span>
-                    <span className="text-[10px] text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full font-bold">All Home Services</span>
+                    <span className="flex items-center gap-1.5">
+                      <Search className="h-3.5 w-3.5 text-blue-600" />
+                      <span>Service Search Dropdown</span>
+                    </span>
+                    <span className="text-[10px] text-blue-600 bg-blue-50/80 px-2.5 py-0.5 rounded-full font-bold border border-blue-200/60">
+                      All Home Services
+                    </span>
                   </label>
                   <div className="relative">
                     <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value)}
-                      className="w-full rounded-xl border border-blue-300 bg-blue-50/50 px-3.5 py-2.5 text-xs font-black text-slate-800 focus:border-blue-600 focus:bg-white focus:outline-none appearance-none cursor-pointer pr-9 shadow-xs"
+                      className="w-full rounded-xl border border-blue-200/90 bg-blue-50/30 px-3.5 py-2.5 text-xs font-black text-slate-800 focus:border-blue-600 focus:bg-white focus:ring-4 focus:ring-blue-100 focus:outline-none appearance-none cursor-pointer pr-9 shadow-2xs transition-all"
                     >
                       <option value="all">✨ All Services (Browse All Home Specialists)</option>
                       
@@ -593,7 +601,7 @@ export default function CustomerDashboard() {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="e.g. Paint crew, interior, David, pipe leak..."
-                      className="w-full rounded-xl border border-slate-300 pl-10 pr-4 py-2.5 text-xs font-medium text-slate-900 focus:border-blue-600 focus:outline-none shadow-xs"
+                      className="w-full rounded-xl border border-slate-300/80 bg-white pl-10 pr-4 py-2.5 text-xs font-medium text-slate-900 focus:border-blue-600 focus:ring-4 focus:ring-blue-100 focus:outline-none shadow-2xs transition-all"
                     />
                   </div>
                 </div>
@@ -606,7 +614,7 @@ export default function CustomerDashboard() {
                   <select
                     value={selectedLocation}
                     onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-xs font-bold text-slate-800 bg-white focus:border-blue-600 focus:outline-none shadow-xs"
+                    className="w-full rounded-xl border border-slate-300/80 px-3.5 py-2.5 text-xs font-bold text-slate-800 bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-100 focus:outline-none shadow-2xs transition-all cursor-pointer"
                   >
                     {LOCATIONS.map((loc) => (
                       <option key={loc.id} value={loc.id}>
@@ -620,7 +628,7 @@ export default function CustomerDashboard() {
                 <div className="flex flex-col justify-center px-1">
                   <div className="flex justify-between text-xs font-bold text-slate-600 mb-1.5">
                     <span>Radius</span>
-                    <span className="text-blue-600 font-extrabold">{maxDistance} km</span>
+                    <span className="text-blue-600 font-extrabold bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200/60">{maxDistance} km</span>
                   </div>
                   <input
                     type="range"
@@ -643,22 +651,22 @@ export default function CustomerDashboard() {
                     value={customLocationText}
                     onChange={(e) => setCustomLocationText(e.target.value)}
                     placeholder="Type custom location (e.g. Harrington Road)"
-                    className="max-w-md rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-medium focus:border-blue-600 focus:outline-none"
+                    className="max-w-md rounded-xl border border-slate-300 px-3.5 py-2 text-xs font-medium focus:border-blue-600 focus:outline-none"
                   />
                 </div>
               )}
 
               {/* Category Pills */}
-              <div className="flex items-center gap-2 overflow-x-auto pb-1">
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1">
                 {SERVICE_CATEGORIES.map((cat) => (
                   <button
                     key={cat.id}
                     type="button"
                     onClick={() => setSelectedCategory(cat.id)}
-                    className={`px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 ${
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150 flex items-center gap-1.5 cursor-pointer ${
                       selectedCategory === cat.id
-                        ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/25'
+                        : 'bg-slate-100/80 text-slate-700 hover:bg-slate-200/80 hover:text-slate-900 border border-slate-200/60'
                     }`}
                   >
                     <span>{cat.icon}</span>
@@ -671,22 +679,22 @@ export default function CustomerDashboard() {
             {/* Provider Grid Header */}
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg sm:text-xl font-black text-slate-900 font-display tracking-tight">
                   Available Online Technicians ({providers.length})
                 </h2>
-                <p className="text-xs text-slate-500">
-                  Showing active service providers available in {currentActiveLocationDisplay}
+                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                  Showing active verified service providers ready for dispatch in {currentActiveLocationDisplay}
                 </p>
               </div>
             </div>
 
             {/* Provider Cards Directory */}
             {providers.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center space-y-3">
-                <AlertCircle className="h-8 w-8 text-slate-400 mx-auto" />
-                <h3 className="text-base font-bold text-slate-800">No Online Technicians Found</h3>
-                <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                  There are no service providers currently online matching your search filters or location radius.
+              <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center space-y-3 shadow-subtle">
+                <AlertCircle className="h-10 w-10 text-slate-300 mx-auto" />
+                <h3 className="text-base font-bold text-slate-800 font-display">No Online Technicians Found</h3>
+                <p className="text-xs text-slate-500 max-w-sm mx-auto font-medium">
+                  There are no service providers currently online matching your search filters or location radius. Try increasing the radius or resetting filters.
                 </p>
               </div>
             ) : (
@@ -694,81 +702,86 @@ export default function CustomerDashboard() {
                 {providers.map((p) => (
                   <div
                     key={p.id}
-                    className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs hover:border-blue-400 transition flex flex-col justify-between space-y-4"
+                    className="rounded-3xl bg-white border border-slate-200/80 p-5 sm:p-6 shadow-subtle hover:shadow-card-hover hover:border-blue-300 transition-all duration-200 hover:-translate-y-1 flex flex-col justify-between space-y-4 group"
                   >
                     <div>
                       {/* Provider Header */}
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-center gap-3">
                           <div
-                            className={`h-11 w-11 rounded-xl ${p.avatarBg || 'bg-blue-600'} text-white font-bold text-lg flex items-center justify-center`}
+                            className={`h-12 w-12 rounded-2xl ${p.avatarBg || 'bg-gradient-to-tr from-blue-600 to-indigo-600'} text-white font-black text-lg flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform`}
                           >
                             {p.name.charAt(0)}
                           </div>
                           <div>
-                            <h3 className="font-bold text-slate-900 text-base leading-tight">
+                            <h3 className="font-extrabold text-slate-900 text-base leading-tight font-display group-hover:text-blue-600 transition-colors">
                               {p.name}
                             </h3>
-                            <span className="text-xs font-bold text-blue-600">
-                              {p.categoryLabel}
+                            <span className="text-xs font-bold text-blue-600 flex items-center gap-1 mt-0.5">
+                              <span>{p.categoryLabel}</span>
+                              <span className="text-slate-300">•</span>
+                              <span className="text-slate-500 font-medium">{p.experienceYears || 5}+ yrs</span>
                             </span>
                           </div>
                         </div>
 
                         <div className="flex flex-col items-end gap-1">
-                          <span className="inline-flex items-center gap-1 text-xs font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full shadow-2xs">
                             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                            Online
+                            <span>Online</span>
                           </span>
                         </div>
                       </div>
 
                       {/* AI Match Score Badge & Emergency Indicator */}
-                      <div className="flex flex-wrap items-center gap-1.5 mt-3">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-xs shadow-xs">
+                      <div className="flex flex-wrap items-center gap-1.5 mt-3.5">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-[11px] shadow-xs">
                           <Sparkles className="h-3 w-3" />
                           <span>{p.aiMatchScore || 96}% AI Match</span>
                         </span>
                         {p.supportsEmergency && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-50 text-red-700 text-[11px] font-extrabold border border-red-200">
-                            🚨 24/7 Emergency
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-50 text-red-700 text-[11px] font-extrabold border border-red-200">
+                            🚨 24/7 SOS
                           </span>
                         )}
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 text-[10px] font-extrabold border border-blue-200">
+                          ✓ Verified Pro
+                        </span>
                       </div>
 
                       {/* Match Reasons Pills */}
                       {p.matchReasons && p.matchReasons.length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-1">
+                        <div className="mt-2.5 flex flex-wrap gap-1">
                           {p.matchReasons.slice(0, 2).map((r, rIdx) => (
-                            <span key={rIdx} className="px-2 py-0.5 rounded-md bg-indigo-50/70 text-indigo-700 text-[10px] font-bold border border-indigo-100">
+                            <span key={rIdx} className="px-2 py-0.5 rounded-md bg-indigo-50/80 text-indigo-700 text-[10px] font-bold border border-indigo-100">
                               ✓ {r}
                             </span>
                           ))}
                         </div>
                       )}
 
-                      <p className="text-xs text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-slate-600 mt-2.5 line-clamp-2 leading-relaxed font-medium">
                         {p.bio}
                       </p>
 
                       {/* Location & Details */}
-                      <div className="mt-4 pt-3 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
+                      <div className="mt-4 pt-3 border-t border-slate-100 space-y-2 text-xs text-slate-600">
                         <div className="flex items-center justify-between">
-                          <span className="flex items-center gap-1 font-semibold text-slate-800">
+                          <span className="flex items-center gap-1 font-semibold text-slate-800 truncate max-w-[180px]">
                             <MapPin className="h-3.5 w-3.5 text-blue-600 shrink-0" />
-                            {p.place ? `${p.place}, ${p.district || p.locationName}` : p.locationName}
+                            <span>{p.place ? `${p.place}, ${p.district || p.locationName}` : p.locationName}</span>
                           </span>
-                          <span className="font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded text-[11px]">
+                          <span className="font-bold text-slate-700 bg-slate-100/80 px-2.5 py-0.5 rounded-full text-[11px] border border-slate-200/60">
                             ~{p.calculatedDistanceMiles.toFixed(1)} km away
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="flex items-center gap-1">
+                          <span className="flex items-center gap-1 font-medium">
                             <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
-                            <strong className="text-slate-900">{p.rating}</strong> ({p.reviewsCount} reviews)
+                            <strong className="text-slate-900 font-extrabold">{p.rating}</strong> ({p.reviewsCount} reviews)
                           </span>
-                          <span className="font-bold text-emerald-700 text-sm">
-                            ${p.hourlyRate}/hr
+                          <span className="font-black text-slate-900 text-sm">
+                            <span className="text-blue-600 text-base font-black">${p.hourlyRate}</span>/hr
                           </span>
                         </div>
                       </div>
@@ -776,7 +789,7 @@ export default function CustomerDashboard() {
                       {/* Skills */}
                       <div className="mt-3 flex flex-wrap gap-1">
                         {p.skills.slice(0, 3).map((sk, idx) => (
-                          <span key={idx} className="px-2 py-0.5 rounded bg-slate-100 text-[11px] font-medium text-slate-600">
+                          <span key={idx} className="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600 border border-slate-200/40">
                             {sk}
                           </span>
                         ))}
@@ -784,11 +797,11 @@ export default function CustomerDashboard() {
                     </div>
 
                     {/* Actions */}
-                    <div className="pt-3 border-t border-slate-100 flex items-center gap-2">
+                    <div className="pt-3.5 border-t border-slate-100 flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => handleOpenPriceEstimator(p.category, p.calculatedDistanceKm || 3.5)}
-                        className="px-2.5 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition flex items-center justify-center gap-1 border border-indigo-200/60"
+                        className="px-2.5 py-2 rounded-xl bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 text-xs font-extrabold transition flex items-center justify-center gap-1 border border-indigo-200/70"
                         title="AI Dynamic Price Estimator"
                       >
                         <Sparkles className="h-3.5 w-3.5" />
@@ -797,14 +810,14 @@ export default function CustomerDashboard() {
                       <button
                         type="button"
                         onClick={() => setViewingProviderDetails(p)}
-                        className="flex-1 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition text-center"
+                        className="flex-1 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-700 text-xs font-extrabold transition text-center"
                       >
                         Profile
                       </button>
                       <button
                         type="button"
                         onClick={() => handleOpenBookingModal(p)}
-                        className="flex-1 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-xs flex items-center justify-center gap-1"
+                        className="flex-1 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold transition shadow-sm shadow-blue-600/25 flex items-center justify-center gap-1"
                       >
                         <Calendar className="h-3.5 w-3.5" />
                         <span>Book</span>
@@ -820,34 +833,38 @@ export default function CustomerDashboard() {
         {/* TAB 2: MY BOOKINGS */}
         {activeTab === 'my_bookings' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-xl font-black text-slate-900 tracking-tight font-display">
                   Service Appointment Activity
                 </h2>
-                <p className="text-xs text-slate-500">
-                  Track pending requests, accepted appointments, and past completed services
+                <p className="text-xs text-slate-500 font-medium">
+                  Track pending requests, accepted appointments, and past completed services in real time.
                 </p>
               </div>
             </div>
 
             {myBookings.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center space-y-3">
-                <Calendar className="h-8 w-8 text-slate-400 mx-auto" />
-                <h3 className="text-base font-bold text-slate-800">No Bookings Yet</h3>
-                <p className="text-xs text-slate-500">
-                  You haven't scheduled any service appointments. Select a technician from the directory to book.
-                </p>
+              <div className="rounded-3xl border border-dashed border-slate-300/90 bg-white p-12 sm:p-16 text-center space-y-4 shadow-subtle">
+                <div className="h-16 w-16 mx-auto rounded-3xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shadow-2xs">
+                  <Calendar className="h-8 w-8 text-blue-600" />
+                </div>
+                <div className="max-w-sm mx-auto space-y-1">
+                  <h3 className="text-base font-extrabold text-slate-900 font-display">No Bookings Yet</h3>
+                  <p className="text-xs text-slate-500 font-medium">
+                    You haven't scheduled any service appointments. Select a technician from the directory to book.
+                  </p>
+                </div>
                 <button
                   type="button"
                   onClick={() => setActiveTab('browse')}
-                  className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg"
+                  className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-sm shadow-blue-500/25 transition"
                 >
                   Browse Service Providers
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {myBookings.map((b) => {
                   const stepIndex =
                     b.status === 'COMPLETED'
@@ -865,68 +882,81 @@ export default function CustomerDashboard() {
                   return (
                     <div
                       key={b.id}
-                      className="rounded-2xl bg-white border border-slate-200/90 p-5 sm:p-6 shadow-xs space-y-4 hover:border-blue-300 transition"
+                      className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-7 shadow-card hover:shadow-card-hover hover:border-blue-200/80 transition-all duration-200 space-y-5"
                     >
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="space-y-1.5">
+                      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+                        <div className="space-y-2.5 flex-1">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-xs font-black text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200 font-display">
+                            <span className="text-xs font-black text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200/80 font-display shadow-2xs">
                               {b.id}
                             </span>
                             {b.isEmergency && (
-                              <span className="px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 border border-red-200 text-xs font-black flex items-center gap-1 animate-pulse">
+                              <span className="px-3 py-1 rounded-full bg-red-100 text-red-800 border border-red-200 text-xs font-black flex items-center gap-1.5 animate-pulse">
                                 🚨 24/7 Emergency Dispatch
                               </span>
                             )}
                             {b.status === 'PENDING' && (
-                              <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">
-                                ⏳ Pending Provider Acceptance
+                              <span className="px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200/80 text-xs font-bold flex items-center gap-1.5">
+                                <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+                                <span>Pending Provider Acceptance</span>
                               </span>
                             )}
                             {b.status === 'ACCEPTED' && (
-                              <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200 text-xs font-bold">
-                                ✅ Accepted & Scheduled
+                              <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-200/80 text-xs font-bold flex items-center gap-1.5">
+                                <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+                                <span>Accepted & Scheduled</span>
                               </span>
                             )}
                             {b.status === 'IN_PROGRESS' && (
-                              <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200 text-xs font-bold">
-                                🚗 Technician In Progress / En Route
+                              <span className="px-3 py-1 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200/80 text-xs font-bold flex items-center gap-1.5">
+                                <span className="h-1.5 w-1.5 rounded-full bg-indigo-600 animate-pulse" />
+                                <span>Technician En Route / Working</span>
                               </span>
                             )}
                             {b.status === 'COMPLETED' && (
-                              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold">
-                                🎉 Job Completed
+                              <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 text-xs font-bold flex items-center gap-1.5">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                                <span>Job Completed</span>
                               </span>
                             )}
                             {b.status === 'CANCELLED' && (
-                              <span className="px-2.5 py-0.5 rounded-full bg-red-50 text-red-800 border border-red-200 text-xs font-bold">
+                              <span className="px-3 py-1 rounded-full bg-red-50 text-red-800 border border-red-200 text-xs font-bold">
                                 ❌ Cancelled
                               </span>
                             )}
                             {isPaid ? (
-                              <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
+                              <span className="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
                                 💳 Paid
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold">
+                              <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold border border-slate-200/60">
                                 Unpaid
                               </span>
                             )}
                           </div>
 
-                          <h3 className="font-extrabold text-slate-900 text-lg">
+                          <h3 className="font-extrabold text-slate-900 text-lg sm:text-xl font-display">
                             {b.serviceTitle}
                           </h3>
-                          <p className="text-xs text-slate-600 font-medium">
-                            Assigned Specialist: <strong className="text-slate-900 font-bold">{b.providerName}</strong> | Scheduled: <span className="font-semibold text-blue-700">{b.scheduledDate} at {b.scheduledTime}</span>
-                          </p>
-                          <p className="text-xs text-slate-500">
-                            Service Location: {b.customerAddress} ({b.customerLocation})
-                          </p>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 font-medium bg-slate-50/80 p-3.5 rounded-2xl border border-slate-200/60">
+                            <p className="flex items-center gap-1.5">
+                              <span className="text-slate-400 font-bold">Specialist:</span>
+                              <strong className="text-slate-900 font-bold">{b.providerName}</strong>
+                            </p>
+                            <p className="flex items-center gap-1.5">
+                              <span className="text-slate-400 font-bold">Scheduled:</span>
+                              <span className="font-bold text-blue-700">{b.scheduledDate} at {b.scheduledTime}</span>
+                            </p>
+                            <p className="sm:col-span-2 flex items-center gap-1.5 text-slate-500">
+                              <MapPin className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                              <span>{b.customerAddress} ({b.customerLocation})</span>
+                            </p>
+                          </div>
 
                           {/* Provider Propose Reschedule Prompt */}
                           {b.rescheduleStatus === 'PROPOSED_BY_PROVIDER' && (
-                            <div className="mt-3 rounded-2xl bg-amber-50 border-2 border-amber-300 p-4 space-y-3 animate-fadeIn">
+                            <div className="mt-3 rounded-2xl bg-amber-50/90 border border-amber-300 p-4 sm:p-5 space-y-3 shadow-xs animate-fadeIn">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <Clock className="h-5 w-5 text-amber-600 animate-pulse" />
@@ -934,15 +964,15 @@ export default function CustomerDashboard() {
                                     ⏱️ Provider Requested a Time Change
                                   </span>
                                 </div>
-                                <span className="px-2 py-0.5 rounded-md bg-amber-200 text-amber-900 font-extrabold text-[10px] uppercase">
+                                <span className="px-2.5 py-1 rounded-full bg-amber-200 text-amber-900 font-extrabold text-[10px] uppercase tracking-wide">
                                   Response Needed
                                 </span>
                               </div>
 
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs bg-white/80 p-2.5 rounded-xl border border-amber-200">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs bg-white/90 p-3 rounded-xl border border-amber-200">
                                 <div>
                                   <span className="text-slate-500 font-bold block text-[11px]">Original Slot:</span>
-                                  <span className="text-slate-600 font-bold line-through">
+                                  <span className="text-slate-500 font-bold line-through">
                                     {b.scheduledDate} at {b.scheduledTime}
                                   </span>
                                 </div>
@@ -955,7 +985,7 @@ export default function CustomerDashboard() {
                               </div>
 
                               {b.rescheduleReason && (
-                                <p className="text-xs text-amber-900 italic bg-amber-100/50 p-2 rounded-lg">
+                                <p className="text-xs text-amber-900 italic bg-amber-100/60 p-2.5 rounded-xl border border-amber-200/60">
                                   <strong>Technician Note:</strong> "{b.rescheduleReason}"
                                 </p>
                               )}
@@ -982,138 +1012,140 @@ export default function CustomerDashboard() {
                           )}
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-2 border-t md:border-t-0 pt-3 md:pt-0">
-                          <div className="text-right mr-3">
-                            <span className="text-2xl font-black text-slate-900 font-display">${b.amount}.00</span>
+                        <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-between gap-4 border-t lg:border-t-0 pt-4 lg:pt-0">
+                          <div className="text-left lg:text-right">
+                            <span className="text-2xl sm:text-3xl font-black text-slate-900 font-display">${b.amount}.00</span>
                             <span className="text-[11px] text-slate-400 block font-semibold">Total Price</span>
                           </div>
 
                           {/* Action Buttons */}
-                          {!isPaid && b.status !== 'CANCELLED' && (
+                          <div className="flex flex-wrap items-center gap-2">
+                            {!isPaid && b.status !== 'CANCELLED' && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setPaymentBooking(b);
+                                  setSelectedPaymentMethod('card');
+                                }}
+                                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-extrabold shadow-sm shadow-emerald-600/25 flex items-center gap-1.5 transition"
+                              >
+                                <DollarSign className="h-4 w-4" />
+                                <span>Pay Now</span>
+                              </button>
+                            )}
+
                             <button
                               type="button"
                               onClick={() => {
-                                setPaymentBooking(b);
-                                setSelectedPaymentMethod('card');
+                                const inv = invoiceData.invoices.find((i) => i.bookingId === b.id) || {
+                                  invoiceNumber: `INV-2026-${b.id.replace('BK-', '')}`,
+                                  bookingId: b.id,
+                                  serviceTitle: b.serviceTitle,
+                                  category: b.category,
+                                  providerName: b.providerName,
+                                  customerName: b.customerName,
+                                  scheduledDate: b.scheduledDate,
+                                  status: b.status,
+                                  totalAmount: b.amount,
+                                  baseFee: Math.round(b.amount * 0.85),
+                                  serviceTax: Math.round(b.amount * 0.10),
+                                  platformFee: b.amount - Math.round(b.amount * 0.85) - Math.round(b.amount * 0.10),
+                                  paymentStatus: isPaid ? 'PAID' : 'PENDING',
+                                  paymentMethod: b.payment?.method || 'card',
+                                  transactionId: b.payment?.transactionId || 'TXN-PENDING',
+                                  issuedDate: b.scheduledDate,
+                                };
+                                setSelectedInvoice(inv);
                               }}
-                              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-extrabold shadow-sm flex items-center gap-1.5 transition"
+                              className="px-3.5 py-2.5 rounded-xl border border-slate-200/90 hover:bg-slate-50 text-slate-700 text-xs font-extrabold transition flex items-center gap-1.5 shadow-2xs"
                             >
-                              <DollarSign className="h-4 w-4" />
-                              <span>Pay Now</span>
+                              <Receipt className="h-3.5 w-3.5 text-slate-500" />
+                              <span>Digital Invoice</span>
                             </button>
-                          )}
 
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const inv = invoiceData.invoices.find((i) => i.bookingId === b.id) || {
-                                invoiceNumber: `INV-2026-${b.id.replace('BK-', '')}`,
-                                bookingId: b.id,
-                                serviceTitle: b.serviceTitle,
-                                category: b.category,
-                                providerName: b.providerName,
-                                customerName: b.customerName,
-                                scheduledDate: b.scheduledDate,
-                                status: b.status,
-                                totalAmount: b.amount,
-                                baseFee: Math.round(b.amount * 0.85),
-                                serviceTax: Math.round(b.amount * 0.10),
-                                platformFee: b.amount - Math.round(b.amount * 0.85) - Math.round(b.amount * 0.10),
-                                paymentStatus: isPaid ? 'PAID' : 'PENDING',
-                                paymentMethod: b.payment?.method || 'card',
-                                transactionId: b.payment?.transactionId || 'TXN-PENDING',
-                                issuedDate: b.scheduledDate,
-                              };
-                              setSelectedInvoice(inv);
-                            }}
-                            className="px-3.5 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1"
-                          >
-                            <Receipt className="h-3.5 w-3.5 text-slate-500" />
-                            <span>Digital Invoice</span>
-                          </button>
+                            {b.status === 'PENDING' && (
+                              <button
+                                type="button"
+                                onClick={() => handleCancelBooking(b.id)}
+                                className="px-3.5 py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-extrabold transition"
+                              >
+                                Cancel
+                              </button>
+                            )}
 
-                          {b.status === 'PENDING' && (
-                            <button
-                              type="button"
-                              onClick={() => handleCancelBooking(b.id)}
-                              className="px-3 py-2 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-xs font-bold transition"
-                            >
-                              Cancel
-                            </button>
-                          )}
+                            {b.status === 'COMPLETED' && !b.userRating && (
+                              <button
+                                type="button"
+                                onClick={() => handleOpenReviewModal(b)}
+                                className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-extrabold transition shadow-sm flex items-center gap-1.5"
+                              >
+                                <Star className="h-3.5 w-3.5 fill-white" />
+                                <span>Rate & AI Review</span>
+                              </button>
+                            )}
 
-                          {b.status === 'COMPLETED' && !b.userRating && (
-                            <button
-                              type="button"
-                              onClick={() => handleOpenReviewModal(b)}
-                              className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-extrabold transition shadow-xs flex items-center gap-1"
-                            >
-                              <Star className="h-3.5 w-3.5 fill-white" />
-                              <span>Rate & AI Review</span>
-                            </button>
-                          )}
+                            {/* Live GPS Dispatch Tracking Button */}
+                            {['ACCEPTED', 'IN_PROGRESS'].includes(b.status) && (
+                              <button
+                                type="button"
+                                onClick={() => setLiveTrackingBookingId(b.id)}
+                                className="px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shadow-md shadow-blue-600/25 transition flex items-center gap-1.5"
+                              >
+                                <Navigation className="h-3.5 w-3.5 animate-pulse" />
+                                <span>Live GPS Tracking</span>
+                              </button>
+                            )}
 
-                          {/* Live GPS Dispatch Tracking Button */}
-                          {['ACCEPTED', 'IN_PROGRESS'].includes(b.status) && (
-                            <button
-                              type="button"
-                              onClick={() => setLiveTrackingBookingId(b.id)}
-                              className="px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shadow-md shadow-blue-600/20 transition flex items-center gap-1.5"
-                            >
-                              <Navigation className="h-3.5 w-3.5 animate-pulse" />
-                              <span>Live GPS Tracking</span>
-                            </button>
-                          )}
+                            {/* Digital Service Warranty Certificate Button */}
+                            {b.status === 'COMPLETED' && (
+                              <button
+                                type="button"
+                                onClick={() => handleOpenWarranty(b)}
+                                className="px-3.5 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 text-xs font-extrabold transition flex items-center gap-1.5"
+                              >
+                                <Award className="h-3.5 w-3.5 text-indigo-600" />
+                                <span>Digital Warranty</span>
+                              </button>
+                            )}
 
-                          {/* Digital Service Warranty Certificate Button */}
-                          {b.status === 'COMPLETED' && (
-                            <button
-                              type="button"
-                              onClick={() => handleOpenWarranty(b)}
-                              className="px-3.5 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-extrabold transition flex items-center gap-1.5"
-                            >
-                              <Award className="h-3.5 w-3.5 text-indigo-600" />
-                              <span>Digital Warranty</span>
-                            </button>
-                          )}
-
-                          {b.userRating && (
-                            <div className="px-3 py-2 rounded-xl bg-amber-50 border border-amber-200 text-xs font-bold text-amber-900 flex items-center gap-1">
-                              <span>⭐ {b.userRating}/5</span>
-                              {b.reviewSentiment?.label && (
-                                <span className="text-[10px] text-emerald-700 bg-white px-1.5 py-0.5 rounded font-black border border-emerald-200 ml-1">
-                                  {b.reviewSentiment.label}
-                                </span>
-                              )}
-                            </div>
-                          )}
+                            {b.userRating && (
+                              <div className="px-3 py-2 rounded-xl bg-amber-50 border border-amber-200 text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                                <span>⭐ {b.userRating}/5</span>
+                                {b.reviewSentiment?.label && (
+                                  <span className="text-[10px] text-emerald-700 bg-white px-2 py-0.5 rounded-md font-black border border-emerald-200 ml-1">
+                                    {b.reviewSentiment.label}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
 
                       {/* LIVE STEPPING STATUS TRACKER */}
                       {b.status !== 'CANCELLED' && (
-                        <div className="pt-3 border-t border-slate-100">
-                          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <div className="pt-4 border-t border-slate-100">
+                          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
                             <Clock className="h-3.5 w-3.5 text-blue-600" />
                             <span>Live Service Tracking Progress</span>
                           </div>
 
                           <div className="grid grid-cols-4 gap-2 text-center text-xs">
-                            <div className={`p-2 rounded-xl border ${stepIndex >= 1 ? 'bg-blue-50 border-blue-200 text-blue-900 font-extrabold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                              <div className="text-sm mb-0.5">{stepIndex >= 1 ? '✓' : '1'}</div>
-                              <div>Requested</div>
+                            <div className={`p-2.5 rounded-2xl border transition ${stepIndex >= 1 ? 'bg-blue-50/80 border-blue-200 text-blue-900 font-extrabold shadow-2xs' : 'bg-slate-50 border-slate-200/60 text-slate-400'}`}>
+                              <div className="text-sm font-black mb-0.5">{stepIndex >= 1 ? '✓' : '1'}</div>
+                              <div className="text-[11px] font-bold">Requested</div>
                             </div>
-                            <div className={`p-2 rounded-xl border ${stepIndex >= 2 ? 'bg-blue-50 border-blue-200 text-blue-900 font-extrabold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                              <div className="text-sm mb-0.5">{stepIndex >= 2 ? '✓' : '2'}</div>
-                              <div>Accepted</div>
+                            <div className={`p-2.5 rounded-2xl border transition ${stepIndex >= 2 ? 'bg-blue-50/80 border-blue-200 text-blue-900 font-extrabold shadow-2xs' : 'bg-slate-50 border-slate-200/60 text-slate-400'}`}>
+                              <div className="text-sm font-black mb-0.5">{stepIndex >= 2 ? '✓' : '2'}</div>
+                              <div className="text-[11px] font-bold">Accepted</div>
                             </div>
-                            <div className={`p-2 rounded-xl border ${stepIndex >= 3 ? 'bg-indigo-50 border-indigo-200 text-indigo-900 font-extrabold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                              <div className="text-sm mb-0.5">{stepIndex >= 3 ? '✓' : '3'}</div>
-                              <div>In Progress</div>
+                            <div className={`p-2.5 rounded-2xl border transition ${stepIndex >= 3 ? 'bg-indigo-50/80 border-indigo-200 text-indigo-900 font-extrabold shadow-2xs' : 'bg-slate-50 border-slate-200/60 text-slate-400'}`}>
+                              <div className="text-sm font-black mb-0.5">{stepIndex >= 3 ? '✓' : '3'}</div>
+                              <div className="text-[11px] font-bold">In Progress</div>
                             </div>
-                            <div className={`p-2 rounded-xl border ${stepIndex >= 4 ? 'bg-emerald-50 border-emerald-200 text-emerald-900 font-extrabold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                              <div className="text-sm mb-0.5">{stepIndex >= 4 ? '✓' : '4'}</div>
-                              <div>Completed</div>
+                            <div className={`p-2.5 rounded-2xl border transition ${stepIndex >= 4 ? 'bg-emerald-50/80 border-emerald-200 text-emerald-900 font-extrabold shadow-2xs' : 'bg-slate-50 border-slate-200/60 text-slate-400'}`}>
+                              <div className="text-sm font-black mb-0.5">{stepIndex >= 4 ? '✓' : '4'}</div>
+                              <div className="text-[11px] font-bold">Completed</div>
                             </div>
                           </div>
                         </div>
@@ -1131,10 +1163,10 @@ export default function CustomerDashboard() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-xl font-black text-slate-900 tracking-tight font-display">
                   Customer Expense & Invoicing Hub
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 font-medium">
                   Itemized receipts and financial breakdown for completed home services
                 </p>
               </div>
@@ -1142,70 +1174,77 @@ export default function CustomerDashboard() {
 
             {/* Invoicing Summary Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs space-y-1">
-                <span className="text-xs font-bold text-slate-500 uppercase">Total Lifetime Expenditure</span>
-                <p className="text-2xl font-black text-slate-900">${invoiceData.totalSpent}.00</p>
-                <span className="text-[11px] text-emerald-600 font-medium">Calculated from completed jobs</span>
+              <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+                <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Total Lifetime Expenditure</span>
+                <p className="text-3xl font-black text-slate-900 font-display">${invoiceData.totalSpent}.00</p>
+                <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+                  <span>✓</span> Calculated from completed jobs
+                </span>
               </div>
-              <div className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs space-y-1">
-                <span className="text-xs font-bold text-slate-500 uppercase">Completed Service Invoices</span>
-                <p className="text-2xl font-black text-blue-600">{invoiceData.completedCount}</p>
-                <span className="text-[11px] text-slate-500">Paid and fulfilled</span>
+              <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+                <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Completed Service Invoices</span>
+                <p className="text-3xl font-black text-blue-600 font-display">{invoiceData.completedCount}</p>
+                <span className="text-[11px] text-slate-500 font-medium">Paid and fulfilled</span>
               </div>
-              <div className="rounded-xl bg-white border border-slate-200 p-5 shadow-xs space-y-1">
-                <span className="text-xs font-bold text-slate-500 uppercase">Active Appointments</span>
-                <p className="text-2xl font-black text-indigo-600">{invoiceData.activeCount}</p>
-                <span className="text-[11px] text-slate-500">Pending & in progress</span>
+              <div className="rounded-3xl bg-white border border-slate-200/90 p-6 shadow-card hover:shadow-card-hover transition-all duration-200 space-y-1">
+                <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Active Appointments</span>
+                <p className="text-3xl font-black text-indigo-600 font-display">{invoiceData.activeCount}</p>
+                <span className="text-[11px] text-slate-500 font-medium">Pending & in progress</span>
               </div>
             </div>
 
             {/* Invoices Table */}
-            <div className="rounded-xl bg-white border border-slate-200 shadow-xs overflow-hidden">
-              <div className="p-5 border-b border-slate-200 flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-sm">Receipts & Transactions</h3>
-                <span className="text-xs text-slate-500">Total: {invoiceData.invoices.length} entries</span>
+            <div className="rounded-3xl bg-white border border-slate-200/90 shadow-card overflow-hidden">
+              <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                  <h3 className="font-extrabold text-slate-900 text-base font-display">Receipts & Transactions</h3>
+                  <p className="text-xs text-slate-500 font-medium">Track your service payment history and receipts</p>
+                </div>
+                <span className="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+                  Total: {invoiceData.invoices.length} entries
+                </span>
               </div>
 
               {invoiceData.invoices.length === 0 ? (
-                <div className="p-8 text-center text-xs text-slate-400">
+                <div className="p-12 text-center text-xs text-slate-400 font-medium">
                   No invoices available yet.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs font-medium text-slate-700">
-                    <thead className="bg-slate-50 text-slate-900 font-bold border-b border-slate-200 uppercase text-[11px]">
+                    <thead className="bg-slate-50/80 text-slate-900 font-extrabold border-b border-slate-200/80 uppercase text-[11px] tracking-wider">
                       <tr>
-                        <th className="px-5 py-3">Invoice No</th>
-                        <th className="px-5 py-3">Service Details</th>
-                        <th className="px-5 py-3">Provider</th>
-                        <th className="px-5 py-3">Date</th>
-                        <th className="px-5 py-3">Status</th>
-                        <th className="px-5 py-3 text-right">Amount</th>
-                        <th className="px-5 py-3 text-center">Action</th>
+                        <th className="px-6 py-4">Invoice No</th>
+                        <th className="px-6 py-4">Service Details</th>
+                        <th className="px-6 py-4">Provider</th>
+                        <th className="px-6 py-4">Date</th>
+                        <th className="px-6 py-4">Status</th>
+                        <th className="px-6 py-4 text-right">Amount</th>
+                        <th className="px-6 py-4 text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {invoiceData.invoices.map((inv) => (
-                        <tr key={inv.invoiceNumber} className="hover:bg-slate-50 transition">
-                          <td className="px-5 py-3.5 font-bold text-slate-900">{inv.invoiceNumber}</td>
-                          <td className="px-5 py-3.5 font-bold text-blue-700">{inv.serviceTitle}</td>
-                          <td className="px-5 py-3.5 text-slate-800">{inv.providerName}</td>
-                          <td className="px-5 py-3.5 text-slate-500">{inv.issuedDate}</td>
-                          <td className="px-5 py-3.5">
-                            <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${
+                        <tr key={inv.invoiceNumber} className="hover:bg-slate-50/70 transition">
+                          <td className="px-6 py-4 font-bold text-slate-900 font-display">{inv.invoiceNumber}</td>
+                          <td className="px-6 py-4 font-bold text-blue-700">{inv.serviceTitle}</td>
+                          <td className="px-6 py-4 text-slate-800 font-medium">{inv.providerName}</td>
+                          <td className="px-6 py-4 text-slate-500">{inv.issuedDate}</td>
+                          <td className="px-6 py-4">
+                            <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${
                               inv.status === 'COMPLETED'
-                                ? 'bg-emerald-50 text-emerald-700'
-                                : 'bg-slate-100 text-slate-700'
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                : 'bg-slate-100 text-slate-700 border-slate-200'
                             }`}>
                               {inv.status}
                             </span>
                           </td>
-                          <td className="px-5 py-3.5 text-right font-black text-slate-900">${inv.totalAmount}.00</td>
-                          <td className="px-5 py-3.5 text-center">
+                          <td className="px-6 py-4 text-right font-black text-slate-900 text-sm font-display">${inv.totalAmount}.00</td>
+                          <td className="px-6 py-4 text-center">
                             <button
                               type="button"
                               onClick={() => setSelectedInvoice(inv)}
-                              className="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded"
+                              className="px-3.5 py-1.5 bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-800 text-xs font-extrabold rounded-xl border border-slate-200/80 transition"
                             >
                               View Receipt
                             </button>
